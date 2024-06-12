@@ -1,8 +1,10 @@
 const searchInput = document.getElementById('search');
 const resultContainer = document.getElementById('result');
-const baseURL = 'https://api.weatherapi.com/v1/forecast.json?key=f219e310d9594626bb0235601241106&days=3&q=id:'
+const baseURL = 'https://api.weatherapi.com/v1/'
 let currentLocation = '';
 
+
+//get result during typing location name
 searchInput.addEventListener('keyup',async function(){
     if (searchInput.value.length < 3) {
        let data = await getData(currentLocation);
@@ -16,13 +18,15 @@ searchInput.addEventListener('keyup',async function(){
 })
 
 
-
+//get forecast data for next 3 days
 async function getData(location) {
-    let result = await fetch(baseURL+location);
+    let result = await fetch(baseURL+"forecast.json?key=f219e310d9594626bb0235601241106&days=3&q=id:"+location);
     let finalResult = await result.json();
     return finalResult;
 }
 
+
+//render data on html
 async function showData(data){
     let dataContainer = '';
     dataContainer += ` <div class="col-12 d-flex justify-content-center">
@@ -69,6 +73,8 @@ async function showData(data){
 }
 
 
+
+//get current user location by ip address using ipinfo.io API, then show data for this locaiton
 async function getCurrentLocation(){
     var result = await fetch("https://ipinfo.io?token=a410bf6c6ee906");
     var finalResult = await result.json();
@@ -78,10 +84,13 @@ async function getCurrentLocation(){
 }
 
 
+//user autocomplete using weatherAPI
 async function search(searchValue){
-    var result = await fetch("https://api.weatherapi.com/v1/search.json?key=f219e310d9594626bb0235601241106&q="+searchValue);
+    var result = await fetch(baseURL+"search.json?key=f219e310d9594626bb0235601241106&q="+searchValue);
     var finalResult = await result.json();
     return finalResult[0].id;
 }
 
+
+//get current user location then show weather result on load
 getCurrentLocation();
