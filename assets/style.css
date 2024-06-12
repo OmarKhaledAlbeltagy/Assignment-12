@@ -1,0 +1,46 @@
+main{
+    background-image: url(../images/301566_beautiful-hd-wallpapers-weather-and-phenomena-backgrounds_1920x1080_h.jpg);
+}
+
+
+main::after{
+    content: "";
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.944);
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+
+.input1::placeholder{
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 22px;
+ font-weight: 600;
+}
+
+.input1{
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.input1:focus{
+    color: white;
+    border: var(--bs-dark-rgb);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+.focus-ring-none{
+    box-shadow: none !important;
+    border:none;
+}
+
+.result{
+    top: 100px;
+}
