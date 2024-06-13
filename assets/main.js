@@ -37,11 +37,11 @@ async function showData(data){
        
         let mainResult = data.forecast.forecastday[i];
 
-         var day =   (new Date(mainResult.date)).toLocaleDateString('en-EG',{
+        let day =   (new Date(mainResult.date)).toLocaleDateString('en-EG',{
             weekday:"long",
          });
 
-         var date =   (new Date(mainResult.date)).toLocaleDateString('en-EG',{
+         let date =   (new Date(mainResult.date)).toLocaleDateString('en-EG',{
             day:"numeric",
             month:"long"
 
@@ -57,7 +57,7 @@ async function showData(data){
                                       <div>${day}</div><div>${date}</div>
                                     </div>
                                     <div class="card-body" style="background-color: #222530bf;">
-                                      <h2 class="text-white fs-1">${maxTemp}<sup>o</sup>C / ${minTemp}<sup>o</sup>C</h2>
+                                      <h2 class="text-white fs-3">${maxTemp}<sup>o</sup>C / ${minTemp}<sup>o</sup>C</h2>
                                       <p class="card-text text-white fs-4"><img src="${thisDay.condition.icon}" alt="">${thisDay.condition.text}</p>
                                     </div>
                                     <div class="card-footer bg-dark d-flex text-white justify-content-between bg-gradient">
@@ -76,18 +76,19 @@ async function showData(data){
 
 //get current user location by ip address using ipinfo.io API, then show data for this locaiton
 async function getCurrentLocation(){
-    var result = await fetch("https://ipinfo.io?token=a410bf6c6ee906");
-    var finalResult = await result.json();
-    currentLocation = finalResult.city;
-    var data = await getData(currentLocation);
+    let result = await fetch("https://ipinfo.io?token=a410bf6c6ee906");
+    let finalResult = await result.json();
+    let city = finalResult.city;
+    currentLocation = await search(city);
+    let data = await getData(currentLocation);
     showData(data)
 }
 
 
 //user autocomplete using weatherAPI
 async function search(searchValue){
-    var result = await fetch(baseURL+"search.json?key=f219e310d9594626bb0235601241106&q="+searchValue);
-    var finalResult = await result.json();
+    let result = await fetch(baseURL+"search.json?key=f219e310d9594626bb0235601241106&q="+searchValue);
+    let finalResult = await result.json();
     return finalResult[0].id;
 }
 
